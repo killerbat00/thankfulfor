@@ -25,10 +25,15 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
         },
 
         postPhrase: function() {
-            var phraseText = $('input[name=phrase]').val();
+            var input = $('input[name=phrase]');
+            var phraseText = input.val();
             var phraseCollection = this.collection;
             $.post('/phrases', {
                 phrase: phraseText
+            }, function(data) {
+                phraseCollection.add(new Phrase({phrase: phraseText}));
+                input.val('');
+                //$('input[name=phrase]').val('');
             });
             return false;
         },
