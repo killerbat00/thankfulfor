@@ -1,4 +1,4 @@
-define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(indexView, Phrase, PhraseCollection) {
+define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(IndexView, Phrase, PhraseCollection) {
     var ThankfulRouter = Backbone.Router.extend({
         currentView:null,
 
