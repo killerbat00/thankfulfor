@@ -110,8 +110,7 @@ var SampleApp = function() {
         };
 
         self.routes['/'] = function(req, res) {
-            res.setHeader('Content-Type', 'text/html');
-            res.render(self.cache_get('index.jade') );
+            res.render('index.jade');
         };
     };
 

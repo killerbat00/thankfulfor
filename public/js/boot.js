@@ -16,7 +16,7 @@ require.config({
     }
 });
 
-require(['Backbone'], function(Backbone) {
-    Backbone.initialize();
+require(['ThankfulFor'], function(ThankfulFor) {
+    ThankfulFor.initialize();
 });
 
