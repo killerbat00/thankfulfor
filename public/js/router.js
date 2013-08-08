@@ -3,7 +3,7 @@ define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(Ind
         currentView:null,
 
         routes: {
-            'index': 'index'
+            'index': 'index',
         },
 
         changeView: function(view) {
@@ -23,6 +23,7 @@ define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(Ind
             phraseCollection.fetch();
         }
     });
+
     return  new ThankfulRouter();
 });
 
