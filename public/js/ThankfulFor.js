@@ -1,5 +1,5 @@
 define(['router'], function(router) {
-    var initialize: function() {
+    var initialize = function() {
         runApplication();
     };
 
