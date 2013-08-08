@@ -1,0 +1,23 @@
+form {
+    width: 500px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-family: Arial, sans-serif;
+    font-align: center;
+}
+
+#content {
+    text-align: center;
+}
+
+
+
+.phrase_list {
+    list-style-type: none;
+    overflow: auto;
+    width: 500px;
+    margin: 0 auto;
+}
+
