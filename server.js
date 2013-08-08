@@ -1,7 +1,11 @@
 #!/bin/env node
 //  OpenShift sample Node application
 var express = require('express');
+var http    = require('http');
 var fs      = require('fs');
+var app     = express();
+var mongoose = require('mongoose');
+var dbPath = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/thankfulfor';
 
 
 /**
@@ -39,11 +43,11 @@ var SampleApp = function() {
      */
     self.populateCache = function() {
         if (typeof self.zcache === "undefined") {
-            self.zcache = { 'index.html': '' };
+            self.zcache = { 'index.jade': '' };
         }
 
         //  Local cache for static content.
-        self.zcache['index.html'] = fs.readFileSync('./index.html');
+        self.zcache['index.jade'] = fs.readFileSync('./views/index.jade');
     };
 
 
@@ -107,7 +111,7 @@ var SampleApp = function() {
 
         self.routes['/'] = function(req, res) {
             res.setHeader('Content-Type', 'text/html');
-            res.send(self.cache_get('index.html') );
+            res.render(self.cache_get('index.jade') );
         };
     };
 
@@ -119,11 +123,40 @@ var SampleApp = function() {
     self.initializeServer = function() {
         self.createRoutes();
         self.app = express.createServer();
-
+        var models = {
+            Phrase: require('./models/Phrase')(self.app, mongoose)
+        };
+        self.app.configure(function() {
+            self.app.set('view engine', 'jade');
+            self.app.use(express.static(__dirname + '/public'));
+            self.app.use(express.bodyParser());
+            self.app.use(express.cookieParser());
+            mongoose.connect(dbPath, function onMongooseError(err) {
+                if (err) throw err;
+            });
+        });
         //  Add handlers for the app (from the routes).
         for (var r in self.routes) {
             self.app.get(r, self.routes[r]);
-        }
+        };
+        self.app.post('/phrases', function(req, res) {
+            var phrase = req.param('phrase', null);
+            if (null == phrase || phrase.length < 1) {
+                res.send(400);
+                return;
+            }
+            models.Phrase.postPhrase(phrase);
+            res.send(200);
+        });
+        self.app.get('/phrases', function(req, res) {
+            models.Phrase.findAll(function onDone(err, phrases) {
+                if (err || phrases.length == 0) {
+                    res.send(404);
+                } else {
+                    res.send(phrases);
+                }
+            });
+        });
     };
 
 
