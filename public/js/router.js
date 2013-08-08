@@ -11,7 +11,7 @@ define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(Ind
                 this.currentView.undelegateEvents();
             }
             this.currentView = view;
-            this.currentView = render();
+            this.currentView.render();
         },
 
         index: function() {

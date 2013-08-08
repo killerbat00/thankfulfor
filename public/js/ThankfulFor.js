@@ -4,7 +4,7 @@ define(['router'], function(router) {
     };
 
     var runApplication = function() {
-        window.location.has = 'index';
+        window.location.hash = 'index';
         Backbone.history.start();
     };
 
