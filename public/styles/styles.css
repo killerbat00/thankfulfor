@@ -1,16 +1,16 @@
 #content {
-    text-align: center;
+    width: 60%;
 }
 
-form {
-    width: 500px;
+.phrase {
+    text-align: center;
+    color: gray;
+    height: 20px;
     margin: 0 auto;
 }
 
 .phrase_list {
     list-style-type: none;
-    overflow: auto;
-    width: 500px;
     margin: 0 auto;
 }
 

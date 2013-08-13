@@ -4,7 +4,9 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
     var indexView = ThankfulForView.extend({
         el: $('#content'),
         events: {
-            'submit form': 'postPhrase'
+            'focus div[class=phrase]': 'clear',
+            'click input[value=Add]' : 'postPhrase',
+            'keypress div[class=phrase]':'postPhraseEnter'
         },
 
         initialize: function() {
@@ -24,18 +26,27 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
             $(phraseHtml).prependTo('.phrase_list').hide().fadeIn('slow');
         },
 
-        postPhrase: function() {
-            var input = $('input[name=phrase]');
-            var phraseText = input.val();
+        clear: function() {
+            var phraseDiv = $('.phrase');
+            phraseDiv.text('');
+        },
+
+        postPhrase: function(e) {
+            e.preventDefault();
+            var phraseText = $('.phrase').text();
             var phraseCollection = this.collection;
             $.post('/phrases', {
                 phrase: phraseText
             }, function(data) {
                 phraseCollection.add(new Phrase({phrase: phraseText}));
-                input.val('');
-                //$('input[name=phrase]').val('');
+                $('.phrase').text('');
             });
             return false;
+        },
+
+        postPhraseEnter: function(e) {
+            if (e.keyCode != 13) return;
+            this.postPhrase(e);
         },
 
         render: function() {
