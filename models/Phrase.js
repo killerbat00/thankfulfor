@@ -27,13 +27,19 @@ module.exports = function(app, mongoose) {
 
     var findAll = function(callback) {
         console.log('Getting all phrases');
-        Phrase.find({}, callback)
+        Phrase.find({}, callback);
+    };
+
+    var findById = function(id, callback) {
+        console.log('Getting phrase by id: ' + id);
+        Phrase.findById(id, callback);
     };
 
     return {
         postPhrase: postPhrase,
         Phrase: Phrase,
-        findAll: findAll
+        findAll: findAll,
+        findById: findById
     }
 }
 

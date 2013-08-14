@@ -3,7 +3,6 @@
 var express = require('express');
 var http    = require('http');
 var fs      = require('fs');
-var app     = express();
 var mongoose = require('mongoose');
 var dbPath = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/thankfulfor';
 
@@ -26,13 +25,13 @@ var SampleApp = function() {
      */
     self.setupVariables = function() {
         //  Set the environment variables we need.
-        self.ipaddress = process.env.OPENSHIFT_INTERNAL_IP || "0.0.0.0"
+        self.ipaddress = process.env.OPENSHIFT_INTERNAL_IP;
         self.port      = process.env.OPENSHIFT_INTERNAL_PORT || "8080";
 
         if (typeof self.ipaddress === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
             //  allows us to run/test the app locally.
-            console.warn('No OPENSHIFT_INTERNAL_IP var, using 127.0.0.1');
+            console.warn('No OPENSHIFT_INTERNAL_IP var, using 0.0.0.0');
             self.ipaddress = "0.0.0.0";
         };
     };
@@ -56,7 +55,6 @@ var SampleApp = function() {
      *  @param {string} key  Key identifying content to retrieve from cache.
      */
     self.cache_get = function(key) { return self.zcache[key]; };
-
 
     /**
      *  terminator === the termination handler
@@ -111,7 +109,7 @@ var SampleApp = function() {
      */
     self.initializeServer = function() {
         self.createRoutes();
-        self.app = express.createServer();
+        self.app = express();
         var models = {
             Phrase: require('./models/Phrase')(self.app, mongoose)
         };
@@ -143,6 +141,15 @@ var SampleApp = function() {
                     res.send(404);
                 } else {
                     res.send(phrases);
+                }
+            });
+        });
+        self.app.get('/phrases/:id', function(req, res) {
+            models.Phrase.findById(req.params.id, function onDone(err, phrase) {
+                if (err || !phrase) {
+                    res.send(404);
+                } else {
+                    res.send(phrase);
                 }
             });
         });

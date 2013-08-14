@@ -5,7 +5,7 @@ html {
     -o-background-size: cover;
     background-size: cover;
     color: white;
-    font-family: Helvetica, Arial, sans;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -43,16 +43,44 @@ h2 {
     list-style-type: none;
     font-size: 15px;
     margin: 3px auto;
+    margin-left: -2.55em;
 }
 
 #phrase {
-    width: 30em;
-    margin-left: 0em;
+    width: 28em;
+    height: 4em;
+    text-align: left;
+    margin-bottom: 0.5em;
+    padding-left: 2em;
+    padding-right: 2em;
     font-size: 20px;
 }
 
-#phrase:hover {
+#phrase:first {
+    margin-top: 1em;
+}
+a:link a:visited {
+    text-decoration: none;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: rgba(0,0,0,0.7);
+}
+
+.hovered {
+    color: rgba(0,0,0,0.7);
     background-color: rgba(224,244,244,0.5);
+}
+
+#date #comments {
+    font-size: 12px;
+}
+#comments {
+    margin-left: 27em;
 }
 
 .flat-button {
