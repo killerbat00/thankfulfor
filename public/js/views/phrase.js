@@ -23,7 +23,7 @@ function(ThankfulForView, phraseTemplate) {
         },
 
         render: function() {
-            $(this.el).html(_.template(phraseTemplate,this.model.toJSON()));
+            $(this.el).html(_.template(phraseTemplate, this.model.toJSON()));
             return this;
         }
     });

@@ -1,1 +1,13 @@
-<div id="phrase"><%= phrase %><br /><span id="date"><a href="/added">date: DD/MM/YYYY</a></span><span id="comments"><a href="/comments">comments: xxx</a></span></div>
+<div id="phrase">
+    <%= phrase %>
+    <br />
+    <% if (added) { %>
+        <span id="date">
+            <a href="#added/<%= added %>">date: DD/MM/YYYY</a>
+        </span>
+    <% } if (_id) { %>
+        <span id="comments">
+            <a href="#comments/<%= _id %>">comments: xxx</a>
+        </span>
+    <% } %>
+</div>
