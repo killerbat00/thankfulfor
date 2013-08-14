@@ -24,6 +24,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
         onPhraseAdded: function(phrase) {
             var phraseHtml = (new PhraseView({model: phrase })).render().el;
             $(phraseHtml).prependTo('.phrase_list').hide().fadeIn('slow');
+            window.location.reload();
         },
 
         clear: function(e) {
