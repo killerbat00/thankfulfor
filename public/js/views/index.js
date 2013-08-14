@@ -50,6 +50,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
                 phraseCollection.add(new Phrase({phrase: phraseText}));
                 $('#phraseBox').text('');
             });
+            window.location.reload();
             return false;
         },
 
