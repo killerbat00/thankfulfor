@@ -49,8 +49,8 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
             }, function(data) {
                 phraseCollection.add(new Phrase({phrase: phraseText}));
                 $('#phraseBox').text('');
+                window.location.reload();
             });
-            window.location.reload();
             return false;
         },
 
