@@ -1,24 +1,19 @@
 {
-  "name": "OpenShift-Sample-App",
-  "version": "1.0.0",
-  "description": "OpenShift Sample Application",
+  "name": "ThankfulFor",
+  "version": "0.0.5",
+  "description": "Post things you're thankful for",
   "keywords": [
     "OpenShift",
     "Node.js",
     "application",
-    "openshift"
+    "openshift",
+    "backbonejs"
   ],
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url":  "http://openshift.redhat.com/"
+    "name": "Brian Morrow",
+    "email": "bmorrow92@gmail.com",
   },
-  "homepage": "http://openshift.redhat.com/",
-  "repository": {
-    "type": "git",
-    "url": "https://gitub.com/openshift/origin-server"
-  },
-
+  "homepage": "http://thankfulfor-bmorrow.rc-apps.unc.edu",
   "engines": {
     "node": ">= 0.6.0",
     "npm": ">= 1.0.0"

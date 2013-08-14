@@ -51,9 +51,7 @@ h2 {
     width: 28em;
     height: 4em;
     text-align: left;
-    margin-bottom: 0.5em;
     padding-left: 2em;
-    padding-right: 2em;
     font-size: 20px;
 }
 
@@ -80,6 +78,7 @@ a:hover {
 #date {
     font-size: 12px;
 }
+
 #comments {
     margin-left: 27em;
     font-size: 12px;
