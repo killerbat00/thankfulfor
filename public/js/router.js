@@ -22,11 +22,11 @@ define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(Ind
             }));
             phraseCollection.fetch();
             if(phraseCollection === 0) {
-                $('.phrase_list').append("<li>Nobody's thaknful. Be the first.</li>");
+                $('.phrase_list').append("<li>Nobody's thankful. Be the first.</li>");
             }
         }
     });
 
-    return  new ThankfulRouter();
+    return new ThankfulRouter();
 });
 
