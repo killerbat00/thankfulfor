@@ -4,9 +4,9 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
     var indexView = ThankfulForView.extend({
         el: $('#content'),
         events: {
-            'focus div[class=phrase]': 'clear',
+            'click div[id=phraseBox]' : 'clear',
             'click input[value=Add]' : 'postPhrase',
-            'keypress div[class=phrase]':'postPhraseEnter'
+            'keypress div[id=phraseBox]' : 'postPhraseEnter'
         },
 
         initialize: function() {
@@ -26,20 +26,26 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
             $(phraseHtml).prependTo('.phrase_list').hide().fadeIn('slow');
         },
 
-        clear: function() {
-            var phraseDiv = $('.phrase');
+        clear: function(e) {
+            e.preventDefault();
+            var phraseDiv = $('#phraseBox');
             phraseDiv.text('');
+            phraseDiv.addClass('visited');
+            phraseDiv.focus();
         },
 
         postPhrase: function(e) {
             e.preventDefault();
-            var phraseText = $('.phrase').text();
+            var phraseDiv = $('#phraseBox');
+            if (!phraseDiv.hasClass('visited')) return;
+            var phraseText = phraseDiv.text();
             var phraseCollection = this.collection;
+            if ((e.keyCode === 13) && (phraseDiv.text()=== '')) return;
             $.post('/phrases', {
                 phrase: phraseText
             }, function(data) {
                 phraseCollection.add(new Phrase({phrase: phraseText}));
-                $('.phrase').text('');
+                $('#phraseBox').text('');
             });
             return false;
         },
