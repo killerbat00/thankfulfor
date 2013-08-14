@@ -21,9 +21,6 @@ define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(Ind
                 collection: phraseCollection
             }));
             phraseCollection.fetch();
-            if(phraseCollection.length === 0) {
-                $('.phrase_list').append('<li><strong>I guess not many people are thankful.</strong></li>');
-            }
         }
     });
 
