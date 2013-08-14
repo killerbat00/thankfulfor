@@ -40,7 +40,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
             if (!phraseDiv.hasClass('visited')) return;
             var phraseText = phraseDiv.text();
             var phraseCollection = this.collection;
-            if(phraseCollection === 0) {
+            if(phraseCollection < 0) {
                 $('.phrase_list').empty();
             }
             if ((e.keyCode === 13) && (phraseDiv.text()=== '')) return;

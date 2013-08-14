@@ -21,6 +21,9 @@ define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(Ind
                 collection: phraseCollection
             }));
             phraseCollection.fetch();
+            if(phraseCollection === 0) {
+                $('.phrase_list').append("<li>Nobody's thaknful. Be the first.</li>");
+            }
         }
     });
 
