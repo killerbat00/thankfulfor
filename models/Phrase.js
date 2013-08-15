@@ -22,6 +22,7 @@ module.exports = function(app, mongoose) {
             phrase: phrase,
         });
         pPhrase.save(postCallback);
+        return pPhrase;
         console.log('save command sent');
     };
 

@@ -37,9 +37,10 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
         postPhrase: function(e) {
             e.preventDefault();
             var phraseDiv = $('#phraseBox');
-            if (!phraseDiv.hasClass('visited')) return;
             var phraseText = phraseDiv.text();
             var phraseCollection = this.collection;
+
+            if(!phraseDiv.hasClass('visited')) return;
             if(phraseCollection < 0) {
                 $('.phrase_list').empty();
             }
@@ -47,9 +48,11 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
             $.post('/phrases', {
                 phrase: phraseText
             }, function(data) {
-                phraseCollection.add(new Phrase({phrase: phraseText}));
+                var content = JSON.parse(data);
+                phraseCollection.add(new Phrase({phrase: content.phrase,
+                                                 added: content.added,
+                                                 _id: content._id}));
                 $('#phraseBox').text('');
-                window.location.reload();
             });
             return false;
         },
@@ -66,7 +69,3 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
 
     return indexView;
 });
-
-
-
-

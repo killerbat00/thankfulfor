@@ -132,8 +132,9 @@ var SampleApp = function() {
                 res.send(400);
                 return;
             }
-            models.Phrase.postPhrase(phrase);
-            res.send(200);
+            var sPhrase = models.Phrase.postPhrase(phrase);
+            //JSONstringify to allow for immediate use.
+            res.send(JSON.stringify(sPhrase));
         });
         self.app.get('/phrases', function(req, res) {
             models.Phrase.findAll(function onDone(err, phrases) {

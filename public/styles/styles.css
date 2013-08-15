@@ -49,7 +49,7 @@ h2 {
 
 #phrase {
     width: 28em;
-    height: 4em;
+    min-height: 4em;
     text-align: left;
     padding-left: 2em;
     font-size: 20px;
