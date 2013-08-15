@@ -6,7 +6,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
         events: {
             'click div[id=phraseBox]' : 'clear',
             'click input[value=Add]' : 'postPhrase',
-            'keypress div[id=phraseBox]' : 'postPhraseEnter',
+            'keypress div[id=phraseBox]' : 'postPhraseEnter'
         },
 
         initialize: function() {
@@ -45,7 +45,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
 
             if(!phraseDiv.hasClass('visited')) return;
             if (((e.keyCode === 13) && (phraseDiv.text()=== ''))) {
-                $('#errorMsg').slideDown('fast');
+                $('#errorMsg').fadeIn('medium');
             }
             if(phraseDiv.text() === '') {
                 $('#errorMsg').fadeIn('medium');
@@ -59,7 +59,8 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
                 var content = JSON.parse(data);
                 phraseCollection.add(new Phrase({phrase: content.phrase,
                                                  added: content.added,
-                                                 _id: content._id}));
+                                                 _id: content._id,
+                                                 comments: content.comments}));
                 $('#phraseBox').text('');
                 $('#errorMsg').fadeOut('medium');
             });

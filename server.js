@@ -4,6 +4,7 @@ var express = require('express');
 var http    = require('http');
 var fs      = require('fs');
 var mongoose = require('mongoose');
+var mongodb = require('mongodb');
 var dbPath = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/thankfulfor';
 
 
@@ -96,10 +97,6 @@ var SampleApp = function() {
      */
     self.createRoutes = function() {
         self.routes = { };
-
-        self.routes['/'] = function(req, res) {
-            res.render('index.jade');
-        };
     };
 
 
@@ -111,7 +108,8 @@ var SampleApp = function() {
         self.createRoutes();
         self.app = express();
         var models = {
-            Phrase: require('./models/Phrase')(self.app, mongoose)
+            Phrase: require('./models/Phrase')(self.app, mongoose, mongodb),
+            Comment: require('./models/Comment')(self.app, mongoose)
         };
         self.app.configure(function() {
             self.app.set('view engine', 'jade');
@@ -126,6 +124,10 @@ var SampleApp = function() {
         for (var r in self.routes) {
             self.app.get(r, self.routes[r]);
         };
+        self.app.get('/', function(req, res) {
+            res.render('index.jade');
+        });
+
         self.app.post('/phrases', function(req, res) {
             var phrase = req.param('phrase', null);
             if (null == phrase || phrase.length < 1) {
@@ -133,9 +135,34 @@ var SampleApp = function() {
                 return;
             }
             var sPhrase = models.Phrase.postPhrase(phrase);
+            var fPhrase = JSON.stringify(sPhrase);
             //JSONstringify to allow for immediate use.
-            res.send(JSON.stringify(sPhrase));
+            res.send(fPhrase);
         });
+
+        self.app.get('/comments/:id', function(req, res) {
+            var id = req.params.id;
+            models.Comment.findAll(id, function onDone(err, comments) {
+                if (err) {
+                    res.send(404);
+                } else {
+                    res.send(comments);
+                }
+            });
+        });
+
+        self.app.post('/comments/:id', function(req, res) {
+            var comment = req.param('text', null);
+            var id = req.params.id;
+            if (null == comment || comment.length < 1) {
+                res.send(400);
+                return;
+            } 
+            var cComment = models.Comment.postComment(id, comment);
+            models.Phrase.updateComments(id);
+            res.send(JSON.stringify(cComment));
+        });
+
         self.app.get('/phrases', function(req, res) {
             models.Phrase.findAll(function onDone(err, phrases) {
                 if (err) {

@@ -20,6 +20,9 @@ h2 {
     -webkit-margin-before: 0em;
     -webkit-margin-after: 0em;
 }
+h2 a:hover {
+    color: white;
+}
 
 #errorMsg {
     line-height: .9em;
@@ -63,8 +66,23 @@ h2 {
     margin-left: -2.6em;
     margin-bottom: 1em;
 }
+.comment_list {
+    list-style-type: none;
+    font-size: 15px;
+    margin: 0 auto;
+    margin-left: -2.6em;
+    margin-bottom: 1em;
+}
 
 #phrase {
+    line-height: 1em;
+    width: 30em;
+    min-height: 4em;
+    text-align: left;
+    padding-left: 2em;
+    font-size: 20px;
+}
+#comment {
     line-height: 1em;
     width: 30em;
     min-height: 4em;

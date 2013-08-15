@@ -1,9 +1,8 @@
-module.exports = function(app, mongoose) {
-    
+module.exports = function(app, mongoose, mongodb) {
     var PhraseSchema = new mongoose.Schema({
-        phraseId: { type: mongoose.Schema.ObjectId },
         added: { type: Date },
-        phrase: { type: String}
+        phrase: { type: String},
+        comments: { type: Number, default: 0 }
     });
 
     var Phrase = mongoose.model('Phrases', PhraseSchema);
@@ -15,14 +14,21 @@ module.exports = function(app, mongoose) {
         return console.log('Post saved');
     };
 
+    var updateComments = function(phraseId) {
+        console.log('Updating # of comments on ' + phraseId);
+        console.log(typeof phraseId);
+        Phrase.update({_id: new mongoose.Schema.ObjectId(phraseId) }, { $inc: { comments: 1 }});
+    };
+
     var postPhrase = function(phrase) {
         console.log('Updating phrase ' + phrase);
         var pPhrase = new Phrase({
             added: new Date(),
-            phrase: phrase,
+            phrase: phrase
         });
         pPhrase.save(postCallback);
         return pPhrase;
+        console.log(pPhrase._id);
         console.log('save command sent');
     };
 
@@ -38,6 +44,7 @@ module.exports = function(app, mongoose) {
 
     return {
         postPhrase: postPhrase,
+        updateComments: updateComments,
         Phrase: Phrase,
         findAll: findAll,
         findById: findById
