@@ -6,12 +6,20 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
         events: {
             'click div[id=phraseBox]' : 'clear',
             'click input[value=Add]' : 'postPhrase',
-            'keypress div[id=phraseBox]' : 'postPhraseEnter'
+            'keypress div[id=phraseBox]' : 'postPhraseEnter',
+            'blur .phrase' : 'resetDiv'
         },
 
         initialize: function() {
             this.collection.on('add', this.onPhraseAdded, this);
             this.collection.on('reset', this.onPhraseCollectionReset, this);
+        },
+
+        resetDiv: function() {
+            var div = $('#phraseBox');
+            if(div.text() === '' && div.hasClass('visited')) {
+                div.html("<i>Enter something you're thankful for here...</i>");
+            }
         },
 
         onPhraseCollectionReset: function(collection) {
@@ -75,6 +83,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
         render: function() {
             this.$el.html(indexTemplate);
             $('#preContent').slideUp('medium');
+            $('body').css('overflow', '');
             return this;
         }
 

@@ -4,6 +4,7 @@ define(['router'], function(router) {
     };
 
     var runApplication = function() {
+        $('body').css('overflow', 'hidden');
         Backbone.history.start();
     };
 
