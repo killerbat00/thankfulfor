@@ -61,13 +61,13 @@ h2 {
 .phrase_list {
     list-style-type: none;
     font-size: 15px;
-    margin: 1em auto;
-    margin-left: -2.55em;
+    margin: 0 auto;
+    margin-left: -2.6em;
     margin-bottom: 1em;
 }
 
 #phrase {
-    width: 28em;
+    width: 30em;
     min-height: 4em;
     text-align: left;
     padding-left: 2em;
