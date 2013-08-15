@@ -3,7 +3,8 @@ define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(Ind
         currentView:null,
 
         routes: {
-            'index': 'index',
+            'index': 'index'/*,
+            'comments/:id' : 'comment'*/
         },
 
         changeView: function(view) {
@@ -24,7 +25,13 @@ define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(Ind
             if(phraseCollection === 0) {
                 $('.phrase_list').append("<li>Nobody's thankful. Be the first.</li>");
             }
-        }
+        }/*,
+
+        comment: function() {
+            var commentCollection = new commentCollection();
+            this.changeView(new commentView());
+            commentCollection.fetch();
+        }*/
     });
 
     return new ThankfulRouter();

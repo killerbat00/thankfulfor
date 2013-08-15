@@ -21,6 +21,10 @@ h2 {
     -webkit-margin-after: 0em;
 }
 
+#preContent {
+    height: 100em;
+}
+
 #content {
     text-align: center;
     background-color: rgba(224,244,244,0.5);

@@ -64,6 +64,8 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
 
         render: function() {
             this.$el.html(indexTemplate);
+            $('#preContent').slideUp('medium');
+            return this;
         }
     });
 
