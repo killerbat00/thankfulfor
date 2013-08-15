@@ -1,10 +1,11 @@
-define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(IndexView, Phrase, PhraseCollection) {
+define(['views/index', 'views/comment', 'models/Phrase', 'models/PhraseCollection'], 
+function(IndexView, CommentView, Phrase, PhraseCollection) {
     var ThankfulRouter = Backbone.Router.extend({
-        currentView:null,
+        currentView: null,
 
         routes: {
-            'index': 'index'/*,
-            'comments/:id' : 'comment'*/
+            'index': 'index',
+            'comments/:id' : 'comment'
         },
 
         changeView: function(view) {
@@ -22,13 +23,11 @@ define(['views/index', 'models/Phrase', 'models/PhraseCollection'], function(Ind
                 collection: phraseCollection
             }));
             phraseCollection.fetch();
-        }/*,
+        },
 
         comment: function() {
-            var commentCollection = new commentCollection();
-            this.changeView(new commentView());
-            commentCollection.fetch();
-        }*/
+            this.changeView(new CommentView());
+        }
     });
 
     return new ThankfulRouter();
