@@ -6,7 +6,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
         events: {
             'click div[id=phraseBox]' : 'clear',
             'click input[value=Add]' : 'postPhrase',
-            'keypress div[id=phraseBox]' : 'postPhraseEnter'
+            'keypress div[id=phraseBox]' : 'postPhraseEnter',
         },
 
         initialize: function() {
@@ -19,6 +19,9 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
             collection.each(function(model) {
                 that.onPhraseAdded(model);
             });
+            if (collection.length===0) {
+                $('.phrase_list').append('<strong>Nobody is thankful. Be the first!</strong>');
+            }
         },
 
         onPhraseAdded: function(phrase) {
@@ -41,10 +44,12 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
             var phraseCollection = this.collection;
 
             if(!phraseDiv.hasClass('visited')) return;
-            if(phraseCollection < 0) {
+            if (((e.keyCode === 13) && (phraseDiv.text()=== ''))) {
+                $('#errorMsg').slideDown('fast');
+            }
+            if(phraseCollection.length === 0) {
                 $('.phrase_list').empty();
             }
-            if ((e.keyCode === 13) && (phraseDiv.text()=== '')) return;
             $.post('/phrases', {
                 phrase: phraseText
             }, function(data) {
@@ -53,6 +58,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
                                                  added: content.added,
                                                  _id: content._id}));
                 $('#phraseBox').text('');
+                $('#errorMsg').slideUp('fast');
             });
             return false;
         },
@@ -67,6 +73,8 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
             $('#preContent').slideUp('medium');
             return this;
         }
+
+
     });
 
     return indexView;

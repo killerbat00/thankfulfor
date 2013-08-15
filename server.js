@@ -138,7 +138,7 @@ var SampleApp = function() {
         });
         self.app.get('/phrases', function(req, res) {
             models.Phrase.findAll(function onDone(err, phrases) {
-                if (err || phrases.length == 0) {
+                if (err) {
                     res.send(404);
                 } else {
                     res.send(phrases);
