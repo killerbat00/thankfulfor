@@ -47,6 +47,9 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
             if (((e.keyCode === 13) && (phraseDiv.text()=== ''))) {
                 $('#errorMsg').slideDown('fast');
             }
+            if(phraseDiv.text() === '') {
+                $('#errorMsg').fadeIn('medium');
+            }
             if(phraseCollection.length === 0) {
                 $('.phrase_list').empty();
             }
@@ -58,7 +61,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
                                                  added: content.added,
                                                  _id: content._id}));
                 $('#phraseBox').text('');
-                $('#errorMsg').slideUp('fast');
+                $('#errorMsg').fadeOut('medium');
             });
             return false;
         },
