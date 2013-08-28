@@ -2,15 +2,24 @@ define(['ThankfulForView', 'text!templates/comment.html', 'views/comment', 'mode
 function(ThankfulForView, commentTemplate, CommentView, Comment) {
     var commentView = ThankfulForView.extend({
         el: $('#content'),
+
         events: {
             'click div[id=phraseBox]' : 'clear',
             'click input[value=Add]' : 'postComment',
-            'keypress div[id=phraseBox]' : 'postCommentEnter'
+            'keypress div[id=phraseBox]' : 'postCommentEnter',
+            'blur .phrase' : 'resetDiv'
         },
 
         initialize: function() {
             this.collection.on('add', this.onCommentAdded, this);
             this.collection.on('reset', this.onCommentAddedReset, this);
+        },
+
+        resetDiv: function() {
+            var div = $('#phraseBox');
+            if(div.text() === '' && div.hasClass('visited')) {
+                div.html("<i>Enter a comment here...</i>");
+            }
         },
 
         onCommentAddedReset: function(collection) {
@@ -19,7 +28,7 @@ function(ThankfulForView, commentTemplate, CommentView, Comment) {
                 that.onCommentAdded(model);
             });
             if (collection.length===0) {
-                $('.comment_list').append('<strong>No comments. Be the first!</strong>');
+                $('.comment_list').empty().append('<strong>No comments. Be the first!</strong>');
             }
         },
 
@@ -74,6 +83,7 @@ function(ThankfulForView, commentTemplate, CommentView, Comment) {
         render: function() {
             this.$el.html(commentTemplate);
             $('#preContent').slideUp('medium');
+            $('body').css('overflow', '');
             return this;
         }
     });

@@ -6,7 +6,7 @@ require.config({
         Backbone: '/js/libs/backbone',
         models: 'models',
         text: '/js/libs/text',
-        templates: '../templates',
+        templates: 'templates',
         ThankfulForView: '/js/ThankfulForView'
     },
 

@@ -3,6 +3,7 @@ define(['ThankfulForView', 'text!templates/index.html',
 function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
     var indexView = ThankfulForView.extend({
         el: $('#content'),
+
         events: {
             'click div[id=phraseBox]' : 'clear',
             'click input[value=Add]' : 'postPhrase',
@@ -28,7 +29,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
                 that.onPhraseAdded(model);
             });
             if (collection.length===0) {
-                $('.phrase_list').append('<strong>Nobody is thankful. Be the first!</strong>');
+                $('.phrase_list').empty().append('<strong>Nobody is thankful. Be the first!</strong>');
             }
         },
 
@@ -86,8 +87,6 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
             $('body').css('overflow', '');
             return this;
         }
-
-
     });
 
     return indexView;

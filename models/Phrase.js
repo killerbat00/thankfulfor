@@ -10,14 +10,15 @@ module.exports = function(app, mongoose, mongodb) {
     var postCallback = function(err) {
         if (err) {
             return console.log(err);
-        };
+        }
         return console.log('Post saved');
     };
 
     var updateComments = function(phraseId) {
         console.log('Updating # of comments on ' + phraseId);
-        console.log(typeof phraseId);
-        Phrase.update({_id: new mongoose.Schema.ObjectId(phraseId) }, { $inc: { comments: 1 }});
+        Phrase.update({_id: phraseId }, { $inc: { comments: 1 }}, {upsert: true}, function(err) {
+            if (err) console.log(err);
+        });
     };
 
     var postPhrase = function(phrase) {
@@ -28,8 +29,6 @@ module.exports = function(app, mongoose, mongodb) {
         });
         pPhrase.save(postCallback);
         return pPhrase;
-        console.log(pPhrase._id);
-        console.log('save command sent');
     };
 
     var findAll = function(callback) {
@@ -48,6 +47,5 @@ module.exports = function(app, mongoose, mongodb) {
         Phrase: Phrase,
         findAll: findAll,
         findById: findById
-    }
-}
-
+    };
+};

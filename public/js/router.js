@@ -10,7 +10,7 @@ function(IndexView, CommentView, Comment, CommentCollection, Phrase, PhraseColle
         },
 
         changeView: function(view) {
-            if (null != this.currentView ) {
+            if (null !== this.currentView ) {
                 this.currentView.undelegateEvents();
             }
             this.currentView = view;

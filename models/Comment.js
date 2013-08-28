@@ -11,7 +11,7 @@ module.exports = function(app, mongoose) {
     var postCallback = function(err) {
         if (err) {
             return console.log(err);
-        };
+        }
         return console.log('Comment Saved');
     };
 
@@ -35,8 +35,5 @@ module.exports = function(app, mongoose) {
         postComment: postComment,
         Comment: Comment,
         findAll: findAll
-    }
-}
-
-
-        
+    };
+};

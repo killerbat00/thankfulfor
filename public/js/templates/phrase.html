@@ -1,0 +1,14 @@
+<div id="phrase">
+    <br />
+    <%= phrase %>
+    <br />
+    <% if (typeof(added) != "undefined") { %>
+        <span id="date">
+            <a href="#added/<%= added %>">date: DD/MM/YYYY</a>
+        </span>
+    <% } if (typeof(_id) != "undefined") { %>
+        <span id="comments">
+            <a href="#comments/<%= _id %>">comments: <%- comments %></a>
+        </span>
+    <% } %>
+</div>

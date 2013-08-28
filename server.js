@@ -16,7 +16,6 @@ var SampleApp = function() {
     //  Scope.
     var self = this;
 
-
     /*  ================================================================  */
     /*  Helper functions.                                                 */
     /*  ================================================================  */
@@ -34,9 +33,8 @@ var SampleApp = function() {
             //  allows us to run/test the app locally.
             console.warn('No OPENSHIFT_INTERNAL_IP var, using 0.0.0.0');
             self.ipaddress = "0.0.0.0";
-        };
+        }
     };
-
 
     /**
      *  Populate the cache.
@@ -49,7 +47,6 @@ var SampleApp = function() {
         //  Local cache for static content.
         self.zcache['index.jade'] = fs.readFileSync('./views/index.jade');
     };
-
 
     /**
      *  Retrieve entry (content) from cache.
@@ -64,13 +61,12 @@ var SampleApp = function() {
      */
     self.terminator = function(sig){
         if (typeof sig === "string") {
-           console.log('%s: Received %s - terminating sample app ...',
+           console.log('%s: Received %s - terminating application ...',
                        Date(Date.now()), sig);
            process.exit(1);
         }
         console.log('%s: Node server stopped.', Date(Date.now()) );
     };
-
 
     /**
      *  Setup termination handlers (for exit and a list of signals).
@@ -86,7 +82,6 @@ var SampleApp = function() {
             process.on(element, function() { self.terminator(element); });
         });
     };
-
 
     /*  ================================================================  */
     /*  App server functions (main app logic here).                       */
@@ -123,14 +118,14 @@ var SampleApp = function() {
         //  Add handlers for the app (from the routes).
         for (var r in self.routes) {
             self.app.get(r, self.routes[r]);
-        };
+        }
         self.app.get('/', function(req, res) {
             res.render('index.jade');
         });
 
         self.app.post('/phrases', function(req, res) {
             var phrase = req.param('phrase', null);
-            if (null == phrase || phrase.length < 1) {
+            if (null === phrase || phrase.length < 1) {
                 res.send(400);
                 return;
             }
@@ -154,7 +149,7 @@ var SampleApp = function() {
         self.app.post('/comments/:id', function(req, res) {
             var comment = req.param('text', null);
             var id = req.params.id;
-            if (null == comment || comment.length < 1) {
+            if (null === comment || comment.length < 1) {
                 res.send(400);
                 return;
             } 
