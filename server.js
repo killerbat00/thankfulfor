@@ -26,7 +26,7 @@ var SampleApp = function() {
     self.setupVariables = function() {
         //  Set the environment variables we need.
         self.ipaddress = process.env.OPENSHIFT_INTERNAL_IP;
-        self.port      = process.env.OPENSHIFT_INTERNAL_PORT || "8080";
+        self.port      = process.env.OPENSHIFT_INTERNAL_PORT || "3000";
 
         if (typeof self.ipaddress === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
@@ -139,7 +139,9 @@ var SampleApp = function() {
             var id = req.params.id;
             models.Comment.findAll(id, function onDone(err, comments) {
                 if (err) {
-                    res.send(404);
+                    //res.send(404);
+                    res.redirect('#/notFound');
+                    console.log('GET: /comments/' + req.params.id);
                 } else {
                     res.send(comments);
                 }
@@ -170,11 +172,19 @@ var SampleApp = function() {
         self.app.get('/phrases/:id', function(req, res) {
             models.Phrase.findById(req.params.id, function onDone(err, phrase) {
                 if (err || !phrase) {
-                    res.send(404);
+                    //res.send(404);
+                    res.redirect('#/notFound');
+                    console.log('GET: /phrases/' + req.params.id);
                 } else {
                     res.send(phrase);
                 }
             });
+        });
+        /* Fallthrough routes */
+        self.app.get('/*', function(req, res) {
+            //res.send(404);
+            res.redirect('/#/notFound');
+            console.log('GET: /' + req.params);
         });
     };
 
