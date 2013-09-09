@@ -68,6 +68,7 @@ function(ThankfulForView, indexTemplate, PhraseView, Phrase) {
                 var content = JSON.parse(data);
                 phraseCollection.add(new Phrase({phrase: content.phrase,
                                                  added: content.added,
+                                                 addedSimple: content.added.toString().substring(4,15),
                                                  _id: content._id,
                                                  comments: content.comments}));
                 $('#phraseBox').text('');

@@ -1,3 +1,4 @@
+<br />
 <div id="phrase">
     <br />
     <%= phrase %>
@@ -5,10 +6,10 @@
     <% if (typeof(added) != "undefined") { %>
     <% var date = new Date(added); %>
         <span id="date">
-            <a href="#added/<%= date.getTime()%>">added: <%- date.toLocaleDateString() %></a>
+            <a href="#added/<%= date.getTime() %>">added: <%- date.toLocaleDateString()%> @ <%- date.toLocaleTimeString() %>UTC</a>
         </span>
     <% } if (typeof(_id) != "undefined") { %>
-        <span id="comments">
+        <span id="added-comments">
             <a href="#comments/<%= _id %>">comments: <%- comments %></a>
         </span>
     <% } %>

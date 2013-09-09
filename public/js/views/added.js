@@ -1,16 +1,16 @@
-define(['ThankfulForView', 'text!templates/phrase.html'],
-function(ThankfulForView, phraseTemplate) {
-    var phraseView = ThankfulForView.extend({
+define(['ThankfulForView', 'text!templates/added.html'],
+function(ThankfulForView, addedTemplate) {
+    var addedView = ThankfulForView.extend({
         tagName: 'li',
 
         events: {
-            'mouseover #phrase': 'mouseOver',
+            'mouseover #phrase' : 'mouseOver',
             'mouseout #phrase' : 'mouseOut'
         },
 
         mouseOver: function() {
             var ele = $(this.el);
-            if(!ele.hasClass('hovered')) {
+            if (!ele.hasClass('hovered')) {
                 ele.addClass('hovered');
             }
         },
@@ -23,9 +23,9 @@ function(ThankfulForView, phraseTemplate) {
         },
 
         render: function() {
-            $(this.$el).html(_.template(phraseTemplate, this.model.toJSON()));
+            $(this.el).html(_.template(addedTemplate, this.model.toJSON()));
             return this;
         }
     });
-    return phraseView;
+    return addedView;
 });

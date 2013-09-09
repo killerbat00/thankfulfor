@@ -1,5 +1,5 @@
-define(['views/index', 'views/commentPage', 'views/notFound', 'models/Comment', 'models/CommentCollection', 'models/Phrase', 'models/PhraseCollection'], 
-function(IndexView, CommentView, notFoundView, Comment, CommentCollection, Phrase, PhraseCollection) {
+define(['views/index', 'views/commentPage', 'views/notFound', 'views/addedPage', 'models/Comment', 'models/CommentCollection', 'models/Phrase', 'models/PhraseCollection', 'models/Added', 'models/AddedCollection'],
+function(IndexView, CommentView, notFoundView, AddedView, Comment, CommentCollection, Phrase, PhraseCollection, Added, AddedCollection) {
     var ThankfulRouter = Backbone.Router.extend({
         currentView: null,
 
@@ -7,6 +7,7 @@ function(IndexView, CommentView, notFoundView, Comment, CommentCollection, Phras
             '' : 'index',
             'index': 'index',
             'comments/:id' : 'comment',
+            'added/:d' : 'added',
             '*path' : 'notFound'
         },
 
@@ -18,12 +19,12 @@ function(IndexView, CommentView, notFoundView, Comment, CommentCollection, Phras
             this.currentView.render();
         },
         notFound: function() {
-            this.navigate('notFound', true);
+            this.navigate('notFound', {trigger: true});
             this.changeView(new notFoundView());
         },
 
         index: function() {
-            this.navigate('/index', true);
+            this.navigate('index', true);
             var phraseCollection = new PhraseCollection();
             phraseCollection.url = '/phrases';
             this.changeView(new IndexView({
@@ -33,15 +34,24 @@ function(IndexView, CommentView, notFoundView, Comment, CommentCollection, Phras
         },
 
         comment: function(id) {
-            this.navigate('/comments/' + id, true);
+            this.navigate('comments/' + id, true);
             var commentCollection = new CommentCollection();
-            commentCollection.url = '/comments/'+id;
+            commentCollection.url = '/comments/' + id;
             this.changeView(new CommentView({
                 collection: commentCollection
             }));
             commentCollection.fetch()
+        },
+
+        added: function(d) {
+            this.navigate('added/' + d, true);
+            var addedCollection = new AddedCollection();
+            addedCollection.url = '/added/' + d;
+            this.changeView(new AddedView({
+                collection: addedCollection
+            }));
+            addedCollection.fetch()
         }
-        
     });
 
     return new ThankfulRouter();

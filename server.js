@@ -26,7 +26,7 @@ var SampleApp = function() {
     self.setupVariables = function() {
         //  Set the environment variables we need.
         self.ipaddress = process.env.OPENSHIFT_INTERNAL_IP;
-        self.port      = process.env.OPENSHIFT_INTERNAL_PORT || "3000";
+        self.port      = process.env.OPENSHIFT_INTERNAL_PORT || "8080";
 
         if (typeof self.ipaddress === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
@@ -164,6 +164,7 @@ var SampleApp = function() {
             models.Phrase.findAll(function onDone(err, phrases) {
                 if (err) {
                     res.send(404);
+                    console.log('ERR: ' + err );
                 } else {
                     res.send(phrases);
                 }
@@ -175,17 +176,30 @@ var SampleApp = function() {
                     //res.send(404);
                     res.redirect('#/notFound');
                     console.log('GET: /phrases/' + req.params.id);
+                    console.log('ERR: ' + err );
                 } else {
                     res.send(phrase);
                 }
             });
         });
-        /* Fallthrough routes */
+        self.app.get('/added/:date', function(req, res) {
+            var date = req.params.date;
+            models.Phrase.findByDate(date, function onDone(err, phrases) {
+                if (err) {
+                    res.redirect('#/notFound');
+                    console.log('ERR: Can\'t find phrase by date' + req.params.date);
+                } else {
+                    res.send(phrases);
+                }
+            });
+        });
+        /* Fallthrough routes *//*
         self.app.get('/*', function(req, res) {
             //res.send(404);
             res.redirect('/#/notFound');
+            console.log('ERR: ');
             console.log('GET: /' + req.params);
-        });
+        });*/
     };
 
 

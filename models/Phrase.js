@@ -1,6 +1,7 @@
 module.exports = function(app, mongoose, mongodb) {
     var PhraseSchema = new mongoose.Schema({
-        added: { type: Date },
+        addedSimple: { type: String },
+        added: { type: String },
         phrase: { type: String},
         comments: { type: Number, default: 0 }
     });
@@ -23,8 +24,10 @@ module.exports = function(app, mongoose, mongodb) {
 
     var postPhrase = function(phrase) {
         console.log('Updating phrase ' + phrase);
+        var added = new Date();
         var pPhrase = new Phrase({
-            added: new Date(),
+            addedSimple: added.toString().substring(4,15),
+            added: added.toUTCString(),
             phrase: phrase
         });
         pPhrase.save(postCallback);
@@ -41,11 +44,19 @@ module.exports = function(app, mongoose, mongodb) {
         Phrase.findById(id, callback);
     };
 
+    var findByDate = function(date, callback) {
+        var dt = new Date(parseInt(date));
+        var realDate = dt.toString().substring(4,15);
+        console.log('Getting phrases by date: ' + realDate);
+        Phrase.find({addedSimple: realDate}, callback);
+    };
+
     return {
         postPhrase: postPhrase,
         updateComments: updateComments,
         Phrase: Phrase,
         findAll: findAll,
-        findById: findById
+        findById: findById,
+        findByDate: findByDate
     };
 };

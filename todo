@@ -1,3 +1,5 @@
 Add admin view
     Allow deleting posts/comments
-Sort by date
+---Sort by date---
+Sort comments by date
+    perhaps threaded under their parent posts

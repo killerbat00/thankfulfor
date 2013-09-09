@@ -4,7 +4,7 @@
     <br />
     <% if (typeof(added) != "undefined") { %>
         <span id="date">
-            date: <%= added %>
+            date: <%= new Date(added).toLocaleDateString() %>
         </span>
     <% } %>
     <br />
