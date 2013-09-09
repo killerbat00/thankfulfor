@@ -32,11 +32,18 @@ module.exports = function(grunt) {
                 keepBuildDir: true
             }
         }
+        },
+        uglify: {
+            options: {
+                compress: true
+            }
         }
+                
     });
 
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.registerTask('default', ['jshint:server', 'jshint:client']);
     grunt.registerTask('build', 'requirejs');
+    grunt.registerTask('ugly', 'uglify');
 };
