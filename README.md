@@ -1,13 +1,13 @@
-Feel free to change or remove this file, it is informational only.
+Thankful For
+===========
 
-Live site at brianmorrow.net/playground/thankfulfor
-
+Live site at http://www.brianmorrow.net/playground/thankfulfor
 
 A simple site built using Backbone.js, Node.js, Require.js and the express framework.
 
 
 Repo Layout
-===========
+----------
 
 node_modules/                       - Any Node modules packaged with the app
 public/                             - Includes all html templates, js files and css
@@ -28,7 +28,7 @@ npm_global_module_list              - List of globally installed node modules
 
 
 The MIT License (MIT)
-
+--------------------
 Copyright (c) 2013 Brian Morrow
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
